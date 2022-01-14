@@ -31,7 +31,10 @@ const geometry = new THREE.PlaneGeometry(1, 1, 32, 32)
 // Material
 const material = new THREE.RawShaderMaterial({
   vertexShader: vertexShader,
-  fragmentShader: fragmentShader
+  fragmentShader: fragmentShader,
+  // common properties like 'wireframe', 'side', 'transparent' and 'flatShading' still work,
+  // but properties that are defined in one of the shaders won't work (e.g. 'map', 'alphaMap', 'opacity', 'color' etc.)
+  wireframe: true,
 })
 
 // Mesh
