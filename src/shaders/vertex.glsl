@@ -55,11 +55,15 @@
 // }
 
 
+// data that doesn't change between vertices is called a uniform (like mesh position or color)
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
 
+// data that does change between vertices is called an attribute (like their position)
 attribute vec3 position;
+
+// we can send data from the vertex shader to the fragment shader using 'varying'
 
 void main(){
   gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1);
