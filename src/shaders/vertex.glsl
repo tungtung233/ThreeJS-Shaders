@@ -66,5 +66,14 @@ attribute vec3 position;
 // we can send data from the vertex shader to the fragment shader using 'varying'
 
 void main(){
+  // gl_Position already exists - notice how I didn't need to declare it, but we need to assign it
+  // it will return a vec4 
+  // this vec4 will be used to position the vector correctly on the render
+  // obviously the first 3 values are used for x,y,z positioning. But the w value is used for ...perspective? I think it's usually 1.0
   gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1);
+
+  // not the correct way of moving things, but it is possible this way
+  // the reason why this isn't the right way is because we aren't moving the actual object, we are moving the projected plane instead.
+  // (imagine you are drawing on a piece of paper. Instead of changing the perspective inside the drawing, you just moved the piece of paper to another part of your desk)
+  // gl_Position.x += 0.5; 
 }
