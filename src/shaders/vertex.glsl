@@ -76,6 +76,7 @@ attribute vec3 position;
 attribute float aRandom;
 
 // we can send data from the vertex shader to the fragment shader using 'varying'
+varying float vRandom;
 
 void main(){
   // gl_Position already exists - notice how I didn't need to declare it, but we need to assign it
@@ -101,4 +102,6 @@ void main(){
   vec4 projectionPosition = projectionMatrix * viewPosition;
 
   gl_Position = projectionPosition;
+
+  vRandom = aRandom;
 }
