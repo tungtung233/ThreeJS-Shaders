@@ -14,5 +14,5 @@ void main() {
   // same like gl_Position, gl_FragColor already exists, but we need to assign it
   // this puts a color on each visible fragment
   // this vec4 is just an rgba value, but instead of going up to 255, it goes to 1.0
-  gl_FragColor = vec4(1.0, 0.0, 0.0, 0.5);
+  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 }

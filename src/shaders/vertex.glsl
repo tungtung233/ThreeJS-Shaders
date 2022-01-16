@@ -73,6 +73,8 @@ uniform mat4 modelMatrix;
 // position is the location specified when creating the geometry
 attribute vec3 position;
 
+attribute float aRandom;
+
 // we can send data from the vertex shader to the fragment shader using 'varying'
 
 void main(){
@@ -91,7 +93,9 @@ void main(){
   // gl_Position.x += 0.5; 
 
   vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-  modelPosition.z += sin(modelPosition.x * 10.0) * 0.1;
+  // modelPosition.z += sin(modelPosition.x * 10.0) * 0.1;
+
+  modelPosition.z += aRandom * 0.1;
 
   vec4 viewPosition = viewMatrix * modelPosition;
   vec4 projectionPosition = projectionMatrix * viewPosition;
