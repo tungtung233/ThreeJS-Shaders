@@ -37,6 +37,7 @@ const material = new THREE.RawShaderMaterial({
   // common properties like 'wireframe', 'side', 'transparent' and 'flatShading' still work,
   // but properties that are defined in one of the shaders won't work (e.g. 'map', 'alphaMap', 'opacity', 'color' etc.)
   side: THREE.DoubleSide,
+  transparent: true,
 })
 
 // Mesh
