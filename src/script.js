@@ -27,6 +27,8 @@ const textureLoader = new THREE.TextureLoader()
  */
 // Geometry
 const geometry = new THREE.PlaneGeometry(1, 1, 32, 32)
+// console.log(geometry)
+// here you can see that under 'attributes', we have 3 default ones - normal, position, uv
 
 // Material
 const material = new THREE.RawShaderMaterial({

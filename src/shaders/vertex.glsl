@@ -56,11 +56,21 @@
 
 
 // data that doesn't change between vertices is called a uniform (like mesh position or color)
+// uniforms can be declared in any order, however, the order in which they are multiplied is important
+// these matrices are provided by threejs already
+// transform the coordinates into the clip space coordinates - after moving all your objects and the camera, any coordinates that fall outside of the clip space coordinates will get clipped
 uniform mat4 projectionMatrix;
+
+// apply transformations relative to the camera (position, rotation, field of view, near, far)
+// e.g. if the camera looks to the left, then all the objects in view should move to the right. If the camera is further away, then the objects should look smaller. If my fov is small, then the objects should look bigger (like you're zooming in)
 uniform mat4 viewMatrix;
+
+// apply transformations relative to the mesh (position, rotation, scale) - don't have to actually write the matrices, threejs does it for you. 
+// when applying transformations, the modelMatrix takes those transformations and turns it into a matrix. Then in gl_Position, those transformations get applied to the mesh's position
 uniform mat4 modelMatrix;
 
 // data that does change between vertices is called an attribute (like their position)
+// position is the location specified when creating the geometry
 attribute vec3 position;
 
 // we can send data from the vertex shader to the fragment shader using 'varying'
@@ -70,10 +80,19 @@ void main(){
   // it will return a vec4 
   // this vec4 will be used to position the vector correctly on the render
   // obviously the first 3 values are used for x,y,z positioning. But the w value is used for ...perspective? I think it's usually 1.0
-  gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1);
+
+  // the order in which this is multiplied is important -
+  // first we apply all the mesh's transformations, then we apply the camera transformations, then finally, check if they are in the clip space
+  // gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1);
 
   // not the correct way of moving things, but it is possible this way
   // the reason why this isn't the right way is because we aren't moving the actual object, we are moving the projected plane instead.
   // (imagine you are drawing on a piece of paper. Instead of changing the perspective inside the drawing, you just moved the piece of paper to another part of your desk)
   // gl_Position.x += 0.5; 
+
+  vec4 modelPosition = modelMatrix * vec4(position, 1.0);
+  vec4 viewPosition = viewMatrix * modelPosition;
+  vec4 projectionPosition = projectionMatrix * viewPosition;
+
+  gl_Position = projectionPosition;
 }
