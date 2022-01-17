@@ -21,6 +21,7 @@ const scene = new THREE.Scene();
  * Textures
  */
 const textureLoader = new THREE.TextureLoader();
+const flagTexture = textureLoader.load("/textures/flag-Canada.jpg");
 
 /**
  * Test mesh
@@ -54,6 +55,7 @@ const material = new THREE.RawShaderMaterial({
     uFrequency: { value: new THREE.Vector2(10, 5) },
     uTime: { value: 0 },
     uColor: { value: new THREE.Color("orange") },
+    uTexture: { value: flagTexture },
   },
 });
 

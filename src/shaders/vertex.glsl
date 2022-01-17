@@ -76,6 +76,11 @@ uniform float uTime;
 // position is the location specified when creating the geometry
 attribute vec3 position;
 
+// our plane geometry automatically generates these coordinates - since it's an attribute, we can retrieve the uv coordinates in our vertex shader and pass them to our frag shader via varying
+attribute vec2 uv;
+
+varying vec2 vUv;
+
 // attribute float aRandom;
 
 // we can send data from the vertex shader to the fragment shader using 'varying'
@@ -108,4 +113,6 @@ void main(){
   gl_Position = projectionPosition;
 
   // vRandom = aRandom;
+
+  vUv = uv;
 }
