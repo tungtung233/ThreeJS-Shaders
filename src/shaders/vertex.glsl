@@ -80,6 +80,7 @@ attribute vec3 position;
 attribute vec2 uv;
 
 varying vec2 vUv;
+varying float vElevation;
 
 // attribute float aRandom;
 
@@ -102,8 +103,12 @@ void main(){
   // gl_Position.x += 0.5; 
 
   vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-  modelPosition.z += sin(modelPosition.x * uFrequency.x - uTime) * 0.1;
-  modelPosition.z += sin(modelPosition.y * uFrequency.y - uTime) * 0.1;
+
+  // depending on the vertex's elevation - make it appear lighter or darker
+  float elevation = sin(modelPosition.x * uFrequency.x - uTime) * 0.1;
+  elevation += sin(modelPosition.y * uFrequency.y - uTime) * 0.1;
+
+  modelPosition.z += elevation;
 
   // modelPosition.z += aRandom * 0.1;
 
@@ -115,4 +120,5 @@ void main(){
   // vRandom = aRandom;
 
   vUv = uv;
+  vElevation = elevation;
 }

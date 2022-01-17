@@ -14,6 +14,7 @@ uniform vec3 uColor;
 uniform sampler2D uTexture;
 
 varying vec2 vUv;
+varying float vElevation;
 
 // notice how this is the same line of code from the vertexShader -> this is how webGL can link the two together
 // varying float vRandom;
@@ -22,6 +23,7 @@ void main() {
   // first parameter is the texture
   // second parameter consists of the coordinates of where to pick the color on that texture
   vec4 textureColor = texture2D(uTexture, vUv);
+  textureColor.rgb *= vElevation + 0.85;
 
   // same like gl_Position, gl_FragColor already exists, but we need to assign it
   // this puts a color on each visible fragment
