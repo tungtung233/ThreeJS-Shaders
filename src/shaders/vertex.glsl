@@ -70,6 +70,7 @@ uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
 
 uniform vec2 uFrequency;
+uniform float uTime;
 
 // data that does change between vertices is called an attribute (like their position)
 // position is the location specified when creating the geometry
@@ -96,8 +97,8 @@ void main(){
   // gl_Position.x += 0.5; 
 
   vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-  modelPosition.z += sin(modelPosition.x * uFrequency.x) * 0.1;
-  modelPosition.z += sin(modelPosition.y * uFrequency.y) * 0.1;
+  modelPosition.z += sin(modelPosition.x * uFrequency.x - uTime) * 0.1;
+  modelPosition.z += sin(modelPosition.y * uFrequency.y - uTime) * 0.1;
 
   // modelPosition.z += aRandom * 0.1;
 
