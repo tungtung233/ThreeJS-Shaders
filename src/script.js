@@ -44,7 +44,18 @@ const count = geometry.attributes.position.count;
 // geometry.setAttribute("aRandom", new THREE.BufferAttribute(randoms, 1));
 
 // Material
-const material = new THREE.RawShaderMaterial({
+// When using 'THREE.ShaderMaterial' instead of 'THREE.RawShaderMaterial', it works the same, but with pre-built uniforms and attributes prepended in the shader codes. The precision will also be automatically set.
+
+// To avoid errors, you will have to remove the following 'uniform', 'attribute' and 'precision' in both shaders: 
+
+// uniform mat4 projectionMatrix;
+// uniform mat4 viewMatrix;
+// uniform mat4 modelMatrix;
+// attribute vec3 position;
+// attribute vec2 uv;
+// precision mediump float;
+
+const material = new THREE.ShaderMaterial({
   vertexShader: vertexShader,
   fragmentShader: fragmentShader,
   // common properties like 'wireframe', 'side', 'transparent' and 'flatShading' still work,
