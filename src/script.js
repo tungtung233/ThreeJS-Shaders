@@ -31,16 +31,16 @@ const geometry = new THREE.PlaneGeometry(1, 1, 32, 32);
 // here you can see that under 'attributes', we have 3 default ones - normal, position, uv
 
 const count = geometry.attributes.position.count;
-const randoms = new Float32Array(count);
+// const randoms = new Float32Array(count);
 
-for (let i = 0; i < count; i++) {
-  randoms[i] = Math.random();
-}
+// for (let i = 0; i < count; i++) {
+//   randoms[i] = Math.random();
+// }
 
 // creating a custom attribute under geometry
 // 'aRandom' -> name of our custom attribute - usually 'a' for attribute, 'u' for uniform', 'v' for varying
 // '1' -> how many elements to take from randoms for 1 vertex - 1 random number per vertex (e.g if it was for positioning, it would be 3, for xyz coordinates)
-geometry.setAttribute("aRandom", new THREE.BufferAttribute(randoms, 1));
+// geometry.setAttribute("aRandom", new THREE.BufferAttribute(randoms, 1));
 
 // Material
 const material = new THREE.RawShaderMaterial({
@@ -49,8 +49,24 @@ const material = new THREE.RawShaderMaterial({
   // common properties like 'wireframe', 'side', 'transparent' and 'flatShading' still work,
   // but properties that are defined in one of the shaders won't work (e.g. 'map', 'alphaMap', 'opacity', 'color' etc.)
   side: THREE.DoubleSide,
-  transparent: true,
+  // transparent: true,
+  uniforms: {
+    uFrequency: { value: new THREE.Vector2(10, 5) },
+  },
 });
+
+gui
+  .add(material.uniforms.uFrequency.value, "x")
+  .min(0)
+  .max(20)
+  .step(0.01)
+  .name("frequencyX");
+gui
+  .add(material.uniforms.uFrequency.value, "y")
+  .min(0)
+  .max(20)
+  .step(0.01)
+  .name("frequencyY");
 
 // Mesh
 const mesh = new THREE.Mesh(geometry, material);

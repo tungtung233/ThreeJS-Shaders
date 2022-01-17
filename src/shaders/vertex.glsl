@@ -69,14 +69,16 @@ uniform mat4 viewMatrix;
 // when applying transformations, the modelMatrix takes those transformations and turns it into a matrix. Then in gl_Position, those transformations get applied to the mesh's position
 uniform mat4 modelMatrix;
 
+uniform vec2 uFrequency;
+
 // data that does change between vertices is called an attribute (like their position)
 // position is the location specified when creating the geometry
 attribute vec3 position;
 
-attribute float aRandom;
+// attribute float aRandom;
 
 // we can send data from the vertex shader to the fragment shader using 'varying'
-varying float vRandom;
+// varying float vRandom;
 
 void main(){
   // gl_Position already exists - notice how I didn't need to declare it, but we need to assign it
@@ -94,14 +96,15 @@ void main(){
   // gl_Position.x += 0.5; 
 
   vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-  // modelPosition.z += sin(modelPosition.x * 10.0) * 0.1;
+  modelPosition.z += sin(modelPosition.x * uFrequency.x) * 0.1;
+  modelPosition.z += sin(modelPosition.y * uFrequency.y) * 0.1;
 
-  modelPosition.z += aRandom * 0.1;
+  // modelPosition.z += aRandom * 0.1;
 
   vec4 viewPosition = viewMatrix * modelPosition;
   vec4 projectionPosition = projectionMatrix * viewPosition;
 
   gl_Position = projectionPosition;
 
-  vRandom = aRandom;
+  // vRandom = aRandom;
 }
