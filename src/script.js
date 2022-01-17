@@ -71,6 +71,7 @@ gui
 
 // Mesh
 const mesh = new THREE.Mesh(geometry, material);
+mesh.scale.y = 2 / 3;
 scene.add(mesh);
 
 /**
@@ -130,7 +131,7 @@ const tick = () => {
   const elapsedTime = clock.getElapsedTime();
 
   // Update material
-  material.uniforms.uTime.value = elapsedTime
+  material.uniforms.uTime.value = elapsedTime;
 
   // Update controls
   controls.update();
