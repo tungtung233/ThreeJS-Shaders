@@ -10,6 +10,8 @@
 // this is automatically handled when using ShaderMaterial
 precision mediump float;
 
+uniform vec3 uColor;
+
 // notice how this is the same line of code from the vertexShader -> this is how webGL can link the two together
 // varying float vRandom;
 
@@ -18,5 +20,5 @@ void main() {
   // this puts a color on each visible fragment
   // this vec4 is just an rgba value, but instead of going up to 255, it goes to 1.0
   // vRandom -> vertices closer to 1 on the z axis (aRandom applied to z axis positioning) will appear closer to white (rgb(1,1,1)) whilst vertices closer to 0 will look more blue (rgb(0,0,1)), with interpolation between the spikes
-  gl_FragColor = vec4(0, 0, 1.0, 1.0);
+  gl_FragColor = vec4(uColor, 1.0);
 }
